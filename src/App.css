@@ -1,0 +1,236 @@
+/* Unlock button */
+.unlock-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #ff69b4, #ff1493);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.title{
+    color: #ff1493;
+    font-size: 2.4em;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+}
+.unlock-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Secret timeline */
+.secret-memories {
+  margin-top: 20px;
+}
+.secret {
+  background: rgba(255, 240, 250, 0.8);
+  border-left: 4px solid #d63384;
+}
+
+/* Passcode modal */
+.passcode-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000;
+}
+.modal-box {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 300px;
+}
+.modal-box input {
+  width: 80%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.modal-box button {
+  margin: 5px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #ff69b4;
+  color: white;
+  cursor: pointer;
+}
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+.close-btn {
+  background: #aaa !important;
+}
+/* Countdown Styling */
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 30px auto;
+  padding: 15px;
+  background: rgba(255, 192, 203, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(255, 105, 180, 0.1);
+  flex-wrap: wrap;
+  max-width: 600px;
+  width: 100%;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 15px;
+  min-width: 70px;
+  box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+  border: 1px solid rgba(255, 192, 203, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.time-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(45deg, #ff69b4, #ff92a5);
+}
+
+.time {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff1493;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  margin: 5px 0;
+  position: relative;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .time {
+    font-size: 1.8rem;
+  }
+  .label {
+    font-size: 0.7rem;
+  }
+  .title {
+    font-size: 1.8em;
+  }
+  .modal-box {
+    width: 90%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .countdown {
+    padding: 10px;
+    gap: 5px;
+  }
+  .time-box {
+    min-width: 60px;
+    padding: 8px 12px;
+  }
+  .time {
+    font-size: 1.5rem;
+  }
+  .unlock-btn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 15px;
+  }
+  .hearts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .heart {
+    font-size: 1.2em;
+  }
+}
+
+.app {
+  background: linear-gradient(135deg, #fff5f7 0%, #ffe0eb 100%);
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes float-1 {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  50% { opacity: 0.3; }
+  100% { transform: translate(100px, -100px) rotate(45deg); opacity: 0; }
+}
+
+@keyframes float-2 {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  50% { opacity: 0.3; }
+  100% { transform: translate(-100px, -150px) rotate(-45deg); opacity: 0; }
+}
+
+.floating-heart {
+  position: fixed;
+  font-size: 1.5rem;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.floating-heart:nth-child(odd) {
+  animation: float-1 6s linear infinite;
+}
+
+.floating-heart:nth-child(even) {
+  animation: float-2 8s linear infinite;
+}
+
+.gift-teaser {
+  text-align: center;
+  color: #ff1493;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 192, 203, 0.1);
+  border-radius: 15px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
