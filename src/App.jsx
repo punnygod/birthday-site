@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import date1 from "./assets/date_1.jpeg";
+import date2 from "./assets/date_2.jpeg";
+import date3 from "./assets/date_3.jpeg";
+import date4 from "./assets/date_4.jpeg";
+import date5 from "./assets/date_5.jpeg";
+import date6 from "./assets/date_6.jpeg";
+import date7 from "./assets/date_7.jpeg";
+import date8 from "./assets/date_8.jpeg"; 
+import date9 from "./assets/date_9.jpeg";
+import end from "./assets/end.jpg";
+import hbd from "./assets/hbd.mp3";
 
 const messages = [
   "I love you ❤️",
@@ -11,12 +22,66 @@ const messages = [
   "Always yours 💖"
 ];
 
-const secretMemories = [
-  "💌 The late-night talks that only we understand 🌙",
-  "🍦 That ice-cream date where we laughed till it melted 😂",
-  "🌧️ Dancing together in the rain – our little movie moment",
-  "🛶 Our secret adventure only we know 😉",
-  "💞 The promise we made under the stars ✨"
+const timelineEvents = [
+  {
+    date: "March 2022",
+    title: "The Beginning",
+    description: "When our paths crossed and a beautiful journey started",
+    image: date4
+  },
+  {
+    date: "April 2022",
+    title: "Our First Meeting",
+    description: "The day our eyes met and everything changed forever",
+    image: date1
+  },
+  {
+    date: "October 2022",
+    title: "First Diwali",
+    description: "Celebrating lights and love together for the first time",
+    image: date2
+  },
+  {
+    date: "March 2023",
+    title: "First Holi",
+    description: "Playing with colors and laughter in the sun",
+    image: date3
+  },
+  {
+    date: "October 2023",
+    title: "First Navratri",
+    description: "Dancing through the nights, lost in each other's eyes",
+    image: date5
+  },
+  {
+    date:"i dont remember",
+    title: "Trip to Ahem Ahem",
+    description: "Statue Statue",
+    image: date6
+  },
+  {
+    date:"September 2023",
+    title: "The Gym Date",
+    description: "Sweating it out together, stronger every day",
+    image: date7
+  },
+  { date :"September 2022",
+    title: "Ikea Adventure",
+    description: "Building memories and furniture together",
+    image: date8
+  },
+  { date :'2024',
+    title: "First Bike Ride",
+    description: "Wind in our hair, freedom in our hearts",
+    image: date9
+  },
+  {
+  date: "Forever Ahead 💞",
+  title: "Our Endless Journey",
+  description:
+    "There are countless birthdays, festivals, and little moments which i missed and many more are still waiting for us. This timeline is just the beginning of our story one that I hope we keep writing together, forever. ❤️",
+  image: end
+ }
 ];
 
 const App = () => {
@@ -25,12 +90,6 @@ const App = () => {
   const [audioPlayed, setAudioPlayed] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const [giftUnlocked, setGiftUnlocked] = useState(false);
-  const [showPasscode, setShowPasscode] = useState(false);
-  const [inputPasscode, setInputPasscode] = useState("");
-  const [error, setError] = useState("");
-
-  const correctPasscode = "0909"; // <--- SET YOUR SECRET CODE HERE
 
   useEffect(() => {
     const targetDate = new Date("September 10, 2025 00:00:00").getTime();
@@ -52,40 +111,36 @@ const App = () => {
         setTimeLeft({ days, hours, minutes, seconds });
       } else {
         clearInterval(timer);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         setShowTimeline(true);
-
-        if (!audioPlayed) {
-          const audio = new Audio(process.env.PUBLIC_URL + "/happy-birthday.mp3");
-          audio.play().catch(() =>
-            console.log("Autoplay blocked, will need user interaction")
-          );
-          setAudioPlayed(true);
-        }
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [audioPlayed]);
+  }, []);
 
-  // Handle heart click
+  // Play birthday song
+  const handlePlayAudio = () => {
+    if (!audioPlayed) {
+      const audio = new Audio(hbd);
+      audio.play().catch(() =>
+        console.log("Autoplay blocked, will need user interaction")
+      );
+      setAudioPlayed(true);
+    }
+  };
+
+  // Handle heart click (popup + possible audio)
   const handleHeartClick = () => {
+    if (!audioPlayed) {
+      handlePlayAudio();
+    }
     const randomMessage =
       messages[Math.floor(Math.random() * messages.length)];
     setPopupMessage(randomMessage);
     setShowPopup(true);
 
     setTimeout(() => setShowPopup(false), 2000);
-  };
-
-  // Handle passcode submit
-  const handleUnlock = () => {
-    if (inputPasscode === correctPasscode) {
-      setGiftUnlocked(true);
-      setShowPasscode(false);
-      setError("");
-    } else {
-      setError("❌ Wrong passcode, try again!");
-    }
   };
 
   return (
@@ -99,25 +154,15 @@ const App = () => {
         ))}
       </div>
 
-      {/* Floating hearts background */}
-      {Array.from({ length: 10 }).map((_, i) => (
-        <div
-          key={`float-${i}`}
-          className="floating-heart"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`
-          }}
-        >
-          ❤️
-        </div>
-      ))}
-
-      <h1 className="title">🎉 Countdown to Shamu's Birthday 🎉</h1>
+      {/* Floating music heart */}
+      {showTimeline && <div className="music-heart" onClick={handlePlayAudio}>
+        ❤️
+      </div>
+      }
 
       {!showTimeline ? (
         <>
+          <h1 className="title">🎉Shamu's Birthday 🎉</h1>
           <div className="countdown">
             <div className="time-box">
               <span className="time">{timeLeft.days}</span>
@@ -140,64 +185,54 @@ const App = () => {
             🎁 A special gift will be unlocked on your birthday! 🎁
           </div>
         </>
-
       ) : (
         <div className="timeline-container">
-          <h2 className="bday-text fade-in">🎂 Happy Birthday My Love ❤️</h2>
-          <div className="timeline">
-            <div className="timeline-item fade-in delay-1">
-              <div>💖 The day we first met – [Add Date]</div>
+          <h3 className="bday-text fade-in title">🎂 Happy Birthday My Love ❤️</h3>
+
+          {/* Show 00 timer when birthday is reached */}
+          <div className="countdown">
+            <div className="time-box">
+              <span className="time">00</span>
+              <span className="label">Day</span>
             </div>
-            <div className="timeline-item fade-in delay-2">
-              <div>✨ Our first trip together – [Add Memory]</div>
+            <div className="time-box">
+              <span className="time">00</span>
+              <span className="label">Hours</span>
             </div>
-            <div className="timeline-item fade-in delay-3">
-              <div>🥰 A special moment – [Add Detail]</div>
+            <div className="time-box">
+              <span className="time">00</span>
+              <span className="label">Min</span>
             </div>
-            <div className="timeline-item fade-in delay-4">
-              <div>🎂 Today – Happy Birthday, My Love ❤️</div>
+            <div className="time-box">
+              <span className="time">00</span>
+              <span className="label">Sec</span>
             </div>
           </div>
 
-          {!giftUnlocked ? (
-            <button className="unlock-btn" onClick={() => setShowPasscode(true)}>
-              🎁 Unlock Secret Gift
-            </button>
-          ) : (
-            <div className="secret-memories fade-in">
-              <h3>💌 Secret Memories Only for Us 💌</h3>
-              {secretMemories.map((m, i) => (
-                <div key={i} className="timeline-item secret">
-                  {m}
+          <div className="timeline">
+            {timelineEvents.map((event, index) => (
+              <div
+                key={index}
+                className={`timeline-item fade-in delay-${index + 1}`}
+              >
+                <div className="timeline-content">
+                  <div className="timeline-date">{event.date}</div>
+                  <h3 className="timeline-title">{event.title}</h3>
+                  <p className="timeline-description">{event.description}</p>
+                  <img
+                    className="timeline-image"
+                    src={event.image}
+                    alt={event.title}
+                  />
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
       {/* Popup message */}
       {showPopup && <div className="popup">{popupMessage}</div>}
-
-      {/* Passcode Modal */}
-      {showPasscode && (
-        <div className="passcode-modal">
-          <div className="modal-box">
-            <h3>🔒 Enter Passcode</h3>
-            <input
-              type="password"
-              value={inputPasscode}
-              onChange={(e) => setInputPasscode(e.target.value)}
-              placeholder="Enter secret code"
-            />
-            <button onClick={handleUnlock}>Unlock</button>
-            {error && <p className="error">{error}</p>}
-            <button className="close-btn" onClick={() => setShowPasscode(false)}>
-              ✖ Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
